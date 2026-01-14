@@ -1,14 +1,21 @@
 import { Link, useLocation } from "wouter";
 import { cn } from "@/lib/utils";
-import { Activity, BarChart3, Gavel, Settings, Zap } from "lucide-react";
+import { Activity, BarChart3, Gavel, Settings, Zap, Languages } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
+import { Button } from "@/components/ui/button";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   const [location] = useLocation();
+  const { language, setLanguage, t } = useLanguage();
+
+  const toggleLanguage = () => {
+    setLanguage(language === 'zh' ? 'en' : 'zh');
+  };
 
   const navItems = [
-    { href: "/", label: "Home", icon: Zap },
-    { href: "/auctions", label: "Auction Tape", icon: Activity },
-    { href: "/admin", label: "Admin", icon: Settings },
+    { href: "/", label: t('nav.home'), icon: Zap },
+    { href: "/auctions", label: t('nav.auction_tape'), icon: Activity },
+    { href: "/admin", label: t('nav.admin'), icon: Settings },
   ];
 
   return (
@@ -21,7 +28,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
               <Gavel className="h-5 w-5" />
             </div>
             <span className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-700 to-blue-500">
-              ADX-hl
+              Mirix-ADX
             </span>
           </div>
 
@@ -44,6 +51,16 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                 </Link>
               );
             })}
+            
+            <Button 
+              variant="ghost" 
+              size="sm" 
+              onClick={toggleLanguage}
+              className="ml-2 flex items-center gap-2 text-slate-600 hover:text-blue-600 hover:bg-slate-100 rounded-full"
+            >
+              <Languages className="h-4 w-4" />
+              {language === 'zh' ? 'EN' : '中文'}
+            </Button>
           </nav>
           
           <div className="flex items-center gap-2">
@@ -60,7 +77,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       <footer className="border-t border-slate-200 bg-white py-8 mt-auto">
         <div className="container flex flex-col md:flex-row justify-between items-center gap-4">
           <div className="text-sm text-slate-500">
-            © 2026 ADX-hl Real-Time Bidding Engine. All rights reserved.
+            © 2026 Mirix-ADX Real-Time Bidding Engine. All rights reserved.
           </div>
           <div className="flex gap-6 text-sm text-slate-500">
             <a href="#" className="hover:text-blue-600 transition-colors">Documentation</a>
