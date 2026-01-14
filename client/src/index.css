@@ -4,6 +4,14 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
+  --animate-wave-slow: wave 15s cubic-bezier(0.55, 0.5, 0.45, 0.5) infinite;
+  --animate-wave-medium: wave 10s cubic-bezier(0.55, 0.5, 0.45, 0.5) infinite;
+  --animate-wave-fast: wave 5s cubic-bezier(0.55, 0.5, 0.45, 0.5) infinite;
+  
+  @keyframes wave {
+    0% { transform: translateX(-50%); }
+    100% { transform: translateX(0); }
+  }
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
